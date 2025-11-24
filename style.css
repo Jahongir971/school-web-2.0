@@ -1,0 +1,1217 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Nunito", sans-serif;
+}
+
+:root {
+    --primary-color: #1b4ef7;
+    --secondary-color: #324fce;
+    --background-color: #f5f7ff;
+    --text-color: #333;
+    --corner-border: 22px;
+    --deep-bg: #001427;
+    --card-radius: 14px;
+    --card-padding: 28px;
+    --muted: #6e8590;
+    --text-dark: #13323f;
+    --desc: #496b75;
+    --white: #ffffff;
+}
+
+header {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 941px;
+    position: relative;
+    overflow: hidden;
+    /* subtle horizontal pan animation */
+    animation: navBgPan 20s ease-in-out infinite;
+    background-image: linear-gradient(120deg, rgba(38, 84, 218, 0.75), rgba(195, 92, 243, 0.452)), url("https://3imiaziz.netlify.app/imgs/bc-replace.jpg");
+    width: 100%;
+    height: 100vh;
+
+}
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: var(--deep-bg);
+    color: var(--white);
+}
+
+/* Utility container constraints (add to your wrapper) */
+.container {
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* ---------- CARDS GRID ---------- */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    align-items: start;
+    /* center horizontally if needed */
+    justify-items: stretch;
+    margin-top: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* ---------- CARD ---------- */
+.card {
+    position: relative;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.99) 0%, rgba(255, 255, 255, 0.98) 100%);
+    color: var(--text-dark);
+    border-radius: var(--card-radius);
+    padding: var(--card-padding);
+    box-shadow: 0 6px 18px rgba(2, 6, 23, 0.12);
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    transition:
+        transform 420ms cubic-bezier(.2, .9, .2, 1),
+        box-shadow 420ms cubic-bezier(.2, .9, .2, 1),
+        border-color 360ms ease,
+        filter 360ms ease;
+    will-change: transform, box-shadow;
+    overflow: visible;
+}
+
+/* slight inner soft line to mimic subtle card edge */
+.card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    box-shadow: inset 0 6px 18px rgba(2, 6, 23, 0.02);
+}
+
+/* subtle colored outline pseudo for hover */
+.card::after {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(6px);
+    filter: blur(6px);
+    transition: opacity 360ms ease, transform 360ms ease, box-shadow 360ms ease;
+    box-shadow: 0 0 0 1px rgba(78, 165, 255, 0.06);
+}
+
+/* ---------- ICON ---------- */
+.icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 10px;
+    display: inline-grid;
+    place-items: center;
+    margin-bottom: 18px;
+    flex: 0 0 auto;
+    box-shadow: 0 6px 18px rgba(2, 6, 23, 0.06);
+    transition: transform 420ms cubic-bezier(.2, .9, .2, 1), box-shadow 420ms;
+}
+
+/* color variants (use class icon--blue / icon--purple etc.) */
+.icon--blue {
+    background: linear-gradient(135deg, #2ea5ff, #3dd3ff);
+}
+
+.icon--purple {
+    background: linear-gradient(135deg, #b36bff, #ff6fb8);
+}
+
+.icon--orange {
+    background: linear-gradient(135deg, #ff8a3d, #ff4e4e);
+}
+
+.icon--green {
+    background: linear-gradient(135deg, #27df7a, #10b981);
+}
+
+.icon--violet {
+    background: linear-gradient(135deg, #9b8bff, #7861ff);
+}
+
+.icon--cyan {
+    background: linear-gradient(135deg, #3dd3ff, #2ea5ff);
+}
+
+/* ---------- CONTENT ---------- */
+.title {
+    margin: 0 0 10px 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: #0f3b4b;
+    transition: color 320ms ease, transform 320ms ease;
+}
+
+.desc {
+    margin: 0;
+    color: var(--desc);
+    font-size: 13px;
+    line-height: 1.6;
+    flex: 1 1 auto;
+    margin-bottom: 18px;
+}
+
+/* bottom accent bar (width controls) */
+.bar {
+    height: 4px;
+    width: 84%;
+    border-radius: 4px;
+    margin-top: auto;
+    align-self: flex-start;
+    background: linear-gradient(90deg, #2ea5ff, #3dd3ff);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+    transition: transform 420ms cubic-bezier(.2, .9, .2, 1), box-shadow 420ms, opacity 360ms;
+}
+
+/* ---------- ENTRANCE ANIMATION ---------- */
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: translateY(28px) scale(.98);
+        filter: blur(6px);
+    }
+
+    60% {
+        opacity: 1;
+        transform: translateY(-8px) scale(1.02);
+        filter: blur(0);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+.card {
+    animation: popIn 740ms cubic-bezier(.18, .9, .28, 1) both;
+}
+
+.card:nth-child(1) {
+    animation-delay: 80ms;
+}
+
+.card:nth-child(2) {
+    animation-delay: 140ms;
+}
+
+/* 2nd card slightly later for emphasis */
+.card:nth-child(3) {
+    animation-delay: 200ms;
+}
+
+.card:nth-child(4) {
+    animation-delay: 260ms;
+}
+
+.card:nth-child(5) {
+    animation-delay: 320ms;
+}
+
+.card:nth-child(6) {
+    animation-delay: 380ms;
+}
+
+/* ---------- HOVER EFFECTS (CSS only) ---------- */
+.card:hover {
+    transform: translateY(-14px) scale(1.018) rotate(-0.2deg);
+    box-shadow: 0 20px 50px rgba(2, 6, 23, 0.28), 0 6px 26px rgba(78, 165, 255, 0.06);
+    z-index: 5;
+}
+
+.card:hover::after {
+    opacity: 1;
+    transform: translateY(0);
+    box-shadow:
+        0 8px 30px rgba(78, 165, 255, 0.10),
+        0 20px 50px rgba(2, 6, 23, 0.12),
+        0 0 0 1px rgba(78, 165, 255, 0.22);
+}
+
+.card:hover .icon {
+    transform: translateY(-6px) scale(1.06);
+    box-shadow: 0 18px 36px rgba(2, 6, 23, 0.12);
+}
+
+.card:hover .title {
+    color: #0b2b37;
+}
+
+/* ---------- 2nd CARD SPECIAL HOVER ---------- */
+/* Stronger lift, colored glow and accent scale for the second card */
+.card:nth-child(2):hover {
+    transform: translateY(-18px) scale(1.04) rotate(-0.6deg);
+    box-shadow: 0 30px 80px rgba(179, 107, 255, 0.12), 0 10px 36px rgba(2, 6, 23, 0.28);
+}
+
+.card:nth-child(2):hover::after {
+    box-shadow:
+        0 10px 36px rgba(179, 107, 255, 0.16),
+        0 28px 64px rgba(2, 6, 23, 0.16),
+        0 0 0 1px rgba(179, 107, 255, 0.26);
+}
+
+.card:nth-child(2):hover .bar {
+    transform: scaleX(1.02);
+    box-shadow: 0 6px 22px rgba(179, 107, 255, 0.08);
+    opacity: 0.98;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 980px) {
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (max-width: 560px) {
+    .cards {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .card {
+        padding: 20px;
+        min-height: unset;
+    }
+}
+
+/* ---------- ACCESSIBILITY: reduce motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+
+    .card,
+    .icon {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+    }
+
+    .card::after {
+        display: none;
+    }
+}
+
+/* car styles end */
+
+@keyframes navBgPan {
+    0% {
+        background-position: 10% center;
+    }
+
+    50% {
+        background-position: 90% center;
+    }
+
+    100% {
+        background-position: 10% center;
+    }
+}
+
+#navTop ul {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+}
+
+/* apply button start */
+#apply_btn {
+    color: #fff;
+    text-decoration: none;
+    background-color: #1942c7;
+    padding: 10px 20px;
+    margin-left: 700px;
+    border-radius: 12px;
+    transition: all 0.2s ease-in-out;           
+}
+#language{
+    margin-left: 00px
+}
+#apply_btn:hover {
+    scale: 1.05;
+    background-color: #2b47c5;
+    /* box-shadow: rgba(43, 71, 197, 0.4) 0px 5px 15px; */
+}
+#apply_btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(43, 71, 197, 0.5);
+}
+#apply_btn:active {
+    scale: 0.95;
+}
+
+/* apply button :end */
+#welcome_p {
+    width: fit-content;
+    display: inline-block;
+    padding: 1em 2em;
+    font-size: 1.1rem;
+    background: linear-gradient(-90deg, #2b47c59a 100%, #1942c7 95%);
+    color: #fff;
+    border: 0px solid rgba(255, 255, 255, 0.48);
+    border-radius: 22px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 18px rgba(0, 0, 0, 0.13);
+    opacity: 0;
+    transform: translateY(40px) scale(0.97);
+    animation: fadeInUp 0.75s cubic-bezier(0.51, 0.96, 0.54, 1.02) 0.15s forwards;
+    transition: border-color 0.25s;
+    margin-top: 230px;
+    transition: all 0.3s ease-in-out;
+}
+
+#welcome_p:hover,
+#welcome_p:focus {
+    border-color: #fff;
+    scale: 1.02;
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(40px) scale(0.97);
+    }
+
+    70% {
+        opacity: 0.68;
+        transform: translateY(-12px) scale(1.025);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+#welcome_p2 {
+    font-size: large;
+    margin-top: 30px;
+    text-align: center;
+    color: white;
+    width: 600px;
+    animation: fadeInUp 0.75s cubic-bezier(0.51, 0.96, 0.54, 1.02) 0.15s forwards;
+}
+
+/* intro info btns start */
+/* Container animation – boshida ko‘rinmaydi */
+.intro-info-btns {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 20px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* Page yuklanganda JS shu klassni qo‘shadi */
+.intro-info-btns.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* AVVALGI button kodlari */
+.btn-primary {
+    background: #2456f7;
+    color: #fff;
+    border: none;
+    padding: 12px 26px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.3s ease;
+}
+
+.btn-primary .arrow {
+    transition: transform 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: #1d46c9;
+}
+
+.btn-primary:hover .arrow {
+    transform: translateX(5px);
+}
+
+.btn-outline {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+    padding: 12px 26px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+}
+
+.btn-outline:hover {
+    background: #2456f7;
+    border-color: #2456f7;
+}
+
+/* intro info btns end */
+/* section-4 or intro info cards start */
+.section-4-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.section-4-container {
+    max-width: 1100px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.section-4-card {
+    flex: 1;
+    min-width: 250px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    padding: 35px 25px;
+    border-radius: 20px;
+    text-align: center;
+    color: #fff;
+
+    transform: translateY(40px);
+    opacity: 0;
+    transition: all .8s ease, border .4s ease;
+}
+
+/* Icon */
+.section-4-icon {
+    font-size: 45px;
+    margin-bottom: 10px;
+    opacity: .8;
+}
+
+/* Numbers */
+.section-4-h2 {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 10px 0 5px;
+}
+
+/* Text */
+.section-4-p {
+    font-size: 17px;
+    opacity: .8;
+}
+
+/* ======== HOVER ANIMATION ======== */
+.section-4-card:hover {
+    transform: translateY(-10px) scale(1.05);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(0, 200, 255, 0.7);
+    box-shadow: 0 0 25px rgba(0, 200, 255, 0.35);
+}
+
+/* ======== APPEAR ANIMATION CLASS ======== */
+.section-4-card.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .section-4-container {
+        gap: 15px;
+    }
+
+    .section-4-card {
+        padding: 30px 20px;
+    }
+}
+
+.section-4-icon svg {
+    width: 55px;
+    /* Icon kattaligi */
+    height: 55px;
+    fill: #74c2ff;
+    /* Icon rangini o'zgartiradi */
+    opacity: 0.9;
+    transition: .4s ease;
+}
+
+/* Hover holati */
+.section-4-card:hover .section-4-icon svg {
+    transform: scale(1.15);
+    fill: #00d4ff;
+    /* hoverda rang */
+    opacity: 1;
+}
+
+/* section-4 end */
+#p_section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#navTop {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    /* translucent dark background with backdrop blur for a frosted look */
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-top: 10px;
+    border-radius: 22px;
+    opacity: 0.9;
+    /* background-image: linear-gradient(-90deg, #2e4dda34 100%, #2552e4 95%); */
+    /* -webkit-backdrop-filter: blur(2px) saturate(110%); */
+    /* backdrop-filter: blur(2px) saturate(110%); */
+    /* border-bottom: 1px solid rgba(255, 255, 255, 0.068); */
+    padding: 0 12px;
+}
+
+s #navTop li {
+    margin: 0 20px;
+}
+
+#navTop li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 6px 10px;
+    /* remove transition on the anchor itself so the underline triggers immediately */
+    transition: none;
+    position: relative;
+    display: inline-block;
+}
+
+#navTop li a::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -1px;
+    transform: translateX(-50%) scaleX(0);
+    transform-origin: center;
+    /* make the underline shorter and thinner */
+    width: 60%;
+    height: 2px;
+    background-color: #ffffffcc;
+    border-radius: 2px;
+    /* smoother easing and explicit 0s delay so hover starts instantly */
+    transition: transform 0.28s cubic-bezier(0.22, 0.9, 0.21, 1) 0s,
+        opacity 0.2s ease 0s;
+    opacity: 0;
+}
+
+#navTop li a:hover::after {
+    transform: translateX(-50%) scaleX(1);
+    opacity: 1;
+}
+
+/* Entrance animations and responsive rules (play when body.is-ready) */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+body.is-ready #navTop img {
+    animation: fadeUp 520ms cubic-bezier(0.22, 0.9, 0.21, 1) both;
+}
+
+body.is-ready #navTop li a {
+    opacity: 0;
+    animation: fadeUp 420ms cubic-bezier(0.22, 0.9, 0.21, 1) both;
+}
+
+body.is-ready #navTop li:nth-of-type(1) a {
+    animation-delay: 0.06s;
+}
+
+body.is-ready #navTop li:nth-of-type(2) a {
+    animation-delay: 0.14s;
+}
+
+body.is-ready #navTop li:nth-of-type(3) a {
+    animation-delay: 0.22s;
+}
+
+body.is-ready #navTop li:nth-of-type(4) a {
+    animation-delay: 0.3s;
+}
+
+body.is-ready #navTop li:nth-of-type(5) a {
+    animation-delay: 0.38s;
+}
+
+body.is-ready #navTop li:nth-of-type(6) a {
+    animation-delay: 0.46s;
+}
+
+body.is-ready #welcome_p {
+    opacity: 0;
+    transform: translateY(8px);
+    animation: fadeUp 660ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    animation-delay: 0.18s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    body.is-ready #navTop img,
+    body.is-ready #navTop li a,
+    body.is-ready #welcome_p {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
+
+/* Responsive nav: wrap and stack on small screens */
+@media (max-width: 900px) {
+    #navTop {
+        flex-wrap: wrap;
+        gap: 8px;
+        height: auto;
+        padding: 10px 14px;
+    }
+
+    #navTop img {
+        order: 1;
+        margin-right: 8px;
+    }
+
+    #navTop li {
+        margin: 6px 10px;
+    }
+
+    #navTop li a {
+        font-size: 14px;
+        padding: 6px 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    nav {
+        height: auto;
+    }
+
+    #navTop {
+        justify-content: flex-start;
+    }
+
+    #navTop img {
+        width: 56px;
+        height: 56px;
+    }
+
+    #navTop li {
+        margin: 6px 6px;
+    }
+
+    #navTop li a {
+        font-size: 13px;
+        padding: 5px 6px;
+    }
+
+    #welcome_p {
+        font-size: 18px;
+        padding: 0 12px;
+    }
+
+    header .content h1 {
+        font-size: 36px;
+    }
+}
+
+:root {
+    --bg: #f6f8fb;
+    --muted: #6b7280;
+    --card-bg: #ffffff;
+    --radius: 14px;
+    --gap: 28px;
+    --shadow: 0 8px 22px rgba(16, 24, 40, 0.263);
+    --shadow-strong: 0 28px 60px rgba(52, 95, 181, 0.434);
+    --accent: #2b6ef6;
+    --ease: cubic-bezier(0.2, 0.9, 0.2, 1);
+    --text: #0f172a;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial;
+    background: linear-gradient(180deg, var(--bg), #ffffff 48%);
+    color: var(--text);
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.45;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* cards icons */
+.card-icon {
+    border-radius: 10px;
+}
+
+/* Layout */
+.site-wrap {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    margin-top: 50px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+/* Header row */
+.programs-section {
+    padding: 6px 0 12px;
+}
+
+.section-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    margin-bottom: 6px;
+}
+
+.programs-section h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--text);
+}
+
+/* Grid */
+.program-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--gap);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Make each grid item isolated so transforms don't affect siblings */
+.program-card {
+    display: block;
+    border-radius: var(--radius);
+    text-decoration: none;
+    color: inherit;
+    outline: none;
+    isolation: isolate;
+    /* prevents filter/transform stacking context bleeding */
+}
+
+/* Card inner */
+.card-inner {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 26px;
+    min-height: 190px;
+    /* keep consistent row heights so hover doesn't change grid track size */
+    box-shadow: var(--shadow);
+    transition: transform 0.36s var(--ease), box-shadow 0.36s var(--ease);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transform-origin: center;
+    will-change: transform, box-shadow;
+    /* promote to its own layer */
+    backface-visibility: hidden;
+    -webkit-transform: translateZ(0);
+    /* force GPU layer */
+}
+
+/* Ensure increased visual size doesn't affect layout:
+   we'll use transform (which doesn't change layout) and increase z-index when hovered */
+.program-card:hover .card-inner,
+.program-card:focus .card-inner {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: var(--shadow-strong);
+    z-index: 5;
+    /* lift above siblings so it doesn't push them visually */
+}
+
+/* Icon */
+.icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    display: inline-grid;
+    place-items: center;
+    box-shadow: 0 8px 22px rgba(15, 23, 42, 0.06);
+    transition: transform 0.36s var(--ease), box-shadow 0.36s var(--ease);
+    flex-shrink: 0;
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+/* Icon lift */
+.program-card:hover .icon,
+.program-card:focus .icon {
+    transform: translateY(-8px) scale(1.06);
+    box-shadow: 0 28px 60px rgba(15, 23, 42, 0.12);
+}
+
+/* Text */
+.text {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.card-title {
+    margin: 0;
+    font-size: 1.02rem;
+    font-weight: 600;
+}
+
+.card-desc {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.45;
+    flex: 1;
+}
+
+/* Divider (bottom filled line)
+   NOTE: we keep fixed layout height and animate visual thickness via transform (scaleY),
+   so the element's box doesn't change and grid rows won't reflow. */
+.divider {
+    display: block;
+    height: 4px;
+    /* keep the layout space constant */
+    width: 100%;
+    border-radius: 4px;
+    margin-top: 6px;
+    transform-origin: left center;
+    transform: scaleX(0) scaleY(1);
+    /* start hidden horizontally */
+    transition: transform 0.9s var(--ease), box-shadow 0.28s var(--ease),
+        opacity 0.28s var(--ease);
+    will-change: transform;
+    opacity: 0.98;
+    box-shadow: inset 0 -6px 18px rgba(0, 0, 0, 0.03);
+}
+
+/* Reveal animation initial state */
+.reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+}
+
+.reveal.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* When in-view: fill divider fully (no layout change) */
+.reveal.in-view .divider {
+    transform: scaleX(1) scaleY(1);
+    /* fill horizontally */
+}
+
+/* Hover/focus: keep divider filled and slightly visually thicker via scaleY (no height change) */
+.program-card:hover .divider,
+.program-card:focus .divider {
+    transform: scaleX(1.02) scaleY(1.35);
+    /* visual thickening without changing layout height */
+    box-shadow: inset 0 -8px 26px rgba(50, 98, 243, 0.05);
+}
+
+/* Focus ring for keyboard users */
+.program-card:focus {
+    outline: 3px solid rgba(43, 110, 246, 0.12);
+    outline-offset: 6px;
+    border-radius: calc(var(--radius) + 2px);
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+    .program-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card-inner {
+        padding: 20px;
+        min-height: 170px;
+    }
+
+    .icon {
+        width: 52px;
+        height: 52px;
+    }
+}
+
+@media (max-width: 640px) {
+    body {
+        padding: 26px 14px;
+    }
+
+    .section-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .program-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .card-inner {
+        padding: 18px;
+        min-height: 150px;
+    }
+
+    .icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 10px;
+    }
+
+    .programs-section h2 {
+        font-size: 1.25rem;
+    }
+
+    .card-title {
+        font-size: 1rem;
+    }
+
+    .section-sub {
+        font-size: 0.95rem;
+        max-width: 100%;
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+
+    .card-inner,
+    .icon,
+    .divider,
+    .reveal {
+        transition: none !important;
+        animation: none !important;
+        transform: none !important;
+    }
+
+    .program-card:focus {
+        outline: 3px solid rgba(43, 110, 246, 0.16);
+    }
+}
+
+/* footer start */
+.footer {
+    background: #0d1628;
+    color: #d4d9e3;
+    padding: 70px 0;
+    /* container bo'ladi, o'rtada turadi */
+    font-family: 'Poppins', sans-serif;
+    margin-top: 90px;
+}
+.footer a{
+    text-decoration: none;
+}
+.footer-container {
+    max-width: 1250px;
+    /* O'rtaga joylashadi */
+    margin: 0 auto;
+    padding: 0 20px;
+
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 60px;
+}
+
+/* Left Side */
+.footer-left {
+    max-width: 420px;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.footer-logo img {
+    width: 50px;
+    height: 50px;
+}
+
+.footer-logo span {
+    font-size: 22px;
+    /* kattalashtirdim */
+    font-weight: 600;
+    color: white;
+}
+
+.footer-text {
+    opacity: 0.85;
+    line-height: 1.7;
+    margin-bottom: 25px;
+    font-size: 17px;
+    /* kattaroq */
+}
+
+/* Social Icons */
+.footer-socials a {
+    display: inline-flex;
+    width: 44px;
+    height: 44px;
+    background: #172034;
+    border-radius: 12px;
+    justify-content: center;
+    align-items: center;
+    margin-right: 12px;
+    transition: .3s ease;
+    font-size: 18px;
+    color: #cbd5e1;
+}
+
+.footer-socials a:hover {
+    background: #2563eb;
+    color: white;
+    transform: translateY(-3px);
+}
+
+/* Columns */
+.footer-links {
+    display: flex;
+    gap: 80px;
+    flex-wrap: wrap;
+}
+
+.footer-col h4 {
+    color: white;
+    font-size: 19px;
+    /* kattaroq */
+    margin-bottom: 20px;
+}
+
+.footer-col a {
+    display: block;
+    margin-bottom: 12px;
+    color: #cbd5e1;
+    font-size: 17px;
+    /* kattaroq */
+    transition: .3s ease;
+}
+
+.footer-col a:hover {
+    color: #4f9efc;
+    padding-left: 4px;
+}
+
+/* Bottom */
+.footer-bottom {
+    margin-top: 60px;
+    border-top: 1px solid #202a3e;
+    padding-top: 30px;
+
+    max-width: 1250px;
+    /* o'rtaga */
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    color: #9aa5b1;
+    font-size: 16px;
+    /* font kattaroq */
+}
+
+.footer-bottom-links a {
+    margin-left: 25px;
+    color: #cbd5e1;
+    font-size: 16px;
+    transition: .3s ease;
+}
+
+.footer-bottom-links a:hover {
+    color: #4f9efc;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .footer-links {
+        gap: 40px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+}
+
+/* footer end */
