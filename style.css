@@ -1,12 +1,150 @@
-* {
+#navTop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    background: transparent;
+    /* <-- Scroll bo‘lmaganda fon yo‘q! */
+    border-bottom: none;
+    transition: background 0.27s, box-shadow 0.27s, border-bottom 0.18s, color 0.19s;
+}
+
+/* SCROLLED holati: qimirlasa sticky oq nav va shadow */
+#navTop.scrolled {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    background: #fff !important;
+    box-shadow: 0 4px 24px rgba(48, 60, 104, 0.13), 0 1.5px 8px rgba(44, 62, 80, 0.08);
+    border-bottom: 1px solid #ebeefd;
+}
+
+#navTop ul {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    list-style: none;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+}
+
+#navTop li a {
+    color: #fff;
+    /* yoki xohlagan nav color, joyida transparentda oq yaxshi ko‘rinadi */
+    font-size: 15px;
+    font-weight: 600;
+    transition: color 0.16s;
+    position: relative;
+    padding: 6px 10px;
+}
+
+#navTop.scrolled li a {
+    color: #1a2454 !important;
+}
+
+
+#navTop li a.active::after,
+#navTop li a:hover::after {
+    width: 100%;
+    opacity: 1;
+}
+
+#navTop li a::after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 5px;
+    background-color: #176dff;
+    border-radius: 2px;
+    opacity: 0;
+    transition: width 0.16s, opacity 0.16s;
+}
+
+#apply_btn {
+    /* z`joyidagi stil o‘zgarishsiz, lekin agar scrollda rang o‘zgartirish kerak bo‘lsa code qo‘shing */
+}
+
+#apply_btn:hover {
+    scale: 1.05;
+    background-color: #2b47c5;
+    box-shadow: rgba(43, 71, 197, 0.4) 0px 5px 15px;
+}
+
+#apply_btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(43, 71, 197, 0.5);
+}
+
+#apply_btn:active {
+    scale: 0.95;
+}
+
+/* Responsive nav: wrap and stack on small screens */
+@media (max-width: 900px) {
+    #navTop {
+        flex-wrap: wrap;
+        gap: 8px;
+        height: auto;
+        padding: 10px 14px;
+    }
+
+    #navTop img {
+        order: 1;
+        margin-right: 8px;
+    }
+
+    #navTop li {
+        margin: 6px 10px;
+    }
+
+    #navTop li a {
+        font-size: 14px;
+        padding: 6px 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    nav {
+        height: auto;
+    }
+
+    #navTop {
+        justify-content: flex-start;
+        padding-left: 10px;
+        padding-right: 10px;
+        height: auto;
+    }
+
+    #navTop img {
+        width: 56px;
+        height: 56px;
+    }
+
+    #navTop li {
+        margin: 6px 6px;
+    }
+
+    #navTop li a {
+        font-size: 13px;
+        padding: 5px 6px;
+    }
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
     font-family: "Nunito", sans-serif;
 }
+
+
 
 :root {
     --primary-color: #1b4ef7;
@@ -37,6 +175,7 @@ header {
     height: 100vh;
 
 }
+
 *,
 *::before,
 *::after {
@@ -65,6 +204,77 @@ body {
 }
 
 /* ---------- CARDS GRID ---------- */
+.cards-info-box {
+    width: 100%;
+    padding: 56px 24px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.cards-info-box__inner {
+    max-width: 860px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* badge */
+.cards-info-box__badge {
+    display: inline-block;
+    padding: 8px 22px;
+    border-radius: 50px;
+    background: #eaf2ff;
+    color: #2b78ff;
+    font-size: 14px;
+    font-weight: 600;
+    border: 1px solid rgba(43, 120, 255, 0.15);
+    box-shadow: 0 6px 18px rgba(43, 120, 255, 0.08);
+    transition: 0.25s ease;
+}
+
+.cards-info-box__badge:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 28px rgba(43, 120, 255, 0.18);
+}
+
+/* title */
+.cards-info-box__title {
+    margin-top: 18px;
+    margin-bottom: 10px;
+    font-size: 24px;
+    font-weight: 600;
+    color: #111827;
+}
+
+/* description */
+.cards-info-box__desc {
+    max-width: 720px;
+    margin: 0 auto;
+    font-size: 16px;
+    color: #6b7280;
+    line-height: 1.7;
+}
+
+/* responsive */
+@media (max-width: 480px) {
+    .cards-info-box {
+        padding: 36px 18px;
+    }
+
+    .cards-info-box__title {
+        font-size: 20px;
+    }
+
+    .cards-info-box__desc {
+        font-size: 14px;
+    }
+
+    .cards-info-box__badge {
+        padding: 6px 16px;
+        font-size: 12px;
+    }
+}
+
 .cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -75,6 +285,166 @@ body {
     margin-top: 50px;
     padding-left: 20px;
     padding-right: 20px;
+    width: 1400px;
+    margin: 0 auto;
+}
+
+/* Asosiy section */
+.about-section {
+    display: flex;
+    gap: 48px;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    background: #fafbfd;
+    border-radius: 18px;
+    box-shadow: 0 4px 32px 0 rgba(0, 0, 0, 0.04);
+}
+
+/* Chap tomon About text */
+.about-text {
+    flex: 1 1 400px;
+    min-width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 26px;
+}
+
+.badge {
+    display: inline-block;
+    background: #1ebd8f;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 5px 16px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 16px 0 rgba(30, 189, 143, 0.09);
+}
+
+.about-section-texts h2 {
+    margin: 0 0 16px;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #062d4f;
+}
+
+.about-section-texts p {
+    font-size: 1.075rem;
+    color: #334155;
+    margin: 0 0 12px;
+    line-height: 1.7;
+    font-weight: 500;
+}
+
+.about-section-texts p:last-child {
+    margin-bottom: 0;
+}
+
+/* O'ng tomon Rasm + statistika */
+.about-img-wrap {
+    flex: 1 1 260px;
+    min-width: 240px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    position: relative;
+}
+
+.img-card {
+    max-width: 250px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    overflow: hidden;
+    background: #fff;
+    padding: 8px;
+}
+
+.img-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+}
+
+/* Statistika badge */
+.stat-badge {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1ebd8f;
+    color: #fff;
+    padding: 13px 26px;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(30, 189, 143, 0.13);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-badge div {
+    font-size: 1.75rem;
+    font-weight: 800;
+    margin-bottom: 2px;
+}
+
+.stat-badge small {
+    font-size: 0.89rem;
+    opacity: 0.94;
+}
+
+
+/* Responsivlik */
+@media (max-width: 900px) {
+    .about-section {
+        flex-direction: column;
+        padding: 24px;
+        gap: 36px;
+    }
+
+    .about-text,
+    .about-img-wrap {
+        min-width: 0;
+        width: 100%;
+        padding: 0;
+    }
+
+    .img-card {
+        width: 100%;
+        max-width: 260px;
+    }
+
+    .stat-badge {
+        position: static;
+        transform: none;
+        margin-top: 12px;
+    }
+}
+
+@media (max-width: 500px) {
+    .about-section {
+        padding: 6px;
+        border-radius: 10px;
+        gap: 18px;
+    }
+
+    .about-section-texts h2 {
+        font-size: 1.25rem;
+    }
+
+    .stat-badge {
+        padding: 9px 12px;
+        font-size: 1.1rem;
+        border-radius: 7px;
+    }
 }
 
 /* ---------- CARD ---------- */
@@ -84,6 +454,8 @@ body {
     color: var(--text-dark);
     border-radius: var(--card-radius);
     padding: var(--card-padding);
+    width: 400px;
+    height: 250px;
     box-shadow: 0 6px 18px rgba(2, 6, 23, 0.12);
     min-height: 220px;
     display: flex;
@@ -343,28 +715,41 @@ body {
 
 /* apply button start */
 #apply_btn {
+    backdrop-filter: blur(1px);
     color: #fff;
     text-decoration: none;
-    background-color: #1942c7;
+    background: linear-gradient(-90deg, #2743beb6 100%, #1942c7 95%);
+
     padding: 10px 20px;
-    margin-left: 700px;
     border-radius: 12px;
-    transition: all 0.2s ease-in-out;           
+    transition: all 0.2s ease-in-out;
 }
-#language{
+
+#language {
     margin-left: 00px
 }
+
 #apply_btn:hover {
     scale: 1.05;
     background-color: #2b47c5;
-    /* box-shadow: rgba(43, 71, 197, 0.4) 0px 5px 15px; */
+    box-shadow: rgba(43, 71, 197, 0.4) 0px 5px 15px;
 }
+
 #apply_btn:focus {
     outline: none;
     box-shadow: 0 0 0 3px rgba(43, 71, 197, 0.5);
 }
+
 #apply_btn:active {
     scale: 0.95;
+}
+
+.intro-centred-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 230px;
 }
 
 /* apply button :end */
@@ -383,7 +768,6 @@ body {
     transform: translateY(40px) scale(0.97);
     animation: fadeInUp 0.75s cubic-bezier(0.51, 0.96, 0.54, 1.02) 0.15s forwards;
     transition: border-color 0.25s;
-    margin-top: 230px;
     transition: all 0.3s ease-in-out;
 }
 
@@ -542,8 +926,7 @@ body {
 .section-4-card:hover {
     transform: translateY(-10px) scale(1.05);
     background: rgba(255, 255, 255, 0.15);
-    border-color: rgba(0, 200, 255, 0.7);
-    box-shadow: 0 0 25px rgba(0, 200, 255, 0.35);
+    box-shadow: 0 0 25px rgba(139, 212, 233, 0.35);
 }
 
 /* ======== APPEAR ANIMATION CLASS ======== */
@@ -596,16 +979,15 @@ body {
     align-items: center;
     height: 80px;
     /* translucent dark background with backdrop blur for a frosted look */
-    margin-left: 30px;
-    margin-right: 30px;
-    margin-top: 10px;
-    border-radius: 22px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 10px;
     opacity: 0.9;
     /* background-image: linear-gradient(-90deg, #2e4dda34 100%, #2552e4 95%); */
     /* -webkit-backdrop-filter: blur(2px) saturate(110%); */
     /* backdrop-filter: blur(2px) saturate(110%); */
     /* border-bottom: 1px solid rgba(255, 255, 255, 0.068); */
-    padding: 0 12px;
+    padding: 0 px;
 }
 
 s #navTop li {
@@ -1002,9 +1384,6 @@ body {
 }
 
 @media (max-width: 640px) {
-    body {
-        padding: 26px 14px;
-    }
 
     .section-top {
         flex-direction: column;
@@ -1059,6 +1438,700 @@ body {
     }
 }
 
+/* events start */
+/* RESET styles */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #fafbfc;
+    color: #222;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border: none;
+}
+
+/* Events Section styles */
+.events-section {
+    width: 100%;
+    max-width: 1200px;
+    margin: 60px auto 0 auto;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1.2s cubic-bezier(.65, .05, .36, 1.0), transform 1.1s cubic-bezier(.61, .04, .36, 1.0);
+    /* Fade up animation */
+}
+
+.events-section.visible {
+    opacity: 1;
+    transform: none;
+}
+
+.events-section__badge {
+    display: inline-block;
+    padding: 8px 24px;
+    margin-bottom: 18px;
+    background-color: #c2f5d6;
+    color: #218e51;
+    font-weight: 500;
+    border-radius: 22px;
+    font-size: 1.12rem;
+    letter-spacing: .01em;
+    box-shadow: 0 2px 16px 0 rgb(34 197 94 / 12%);
+}
+
+.events-section__title {
+    font-size: 1.4rem;
+    color: #222b45;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.events-section__desc {
+    color: #58677a;
+    font-size: 1.04rem;
+    margin-bottom: 32px;
+}
+
+.events-section__cards {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+/* Card styles */
+.event-card__info span svg {
+    margin-right: 8px;
+    color: #2171e3;
+    vertical-align: -3px;
+}
+
+.event-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 6px 24px 0 rgb(31 41 55 / 7%);
+    overflow: hidden;
+    width: 330px;
+    min-width: 260px;
+    text-align: left;
+    border: 1px solid #ececec;
+    transition: box-shadow .20s;
+    position: relative;
+    opacity: 0;
+    transform: translateY(30px) scale(.98);
+    transition: opacity 1.1s cubic-bezier(.65, .05, .36, 1.0);
+    transition: transform .9s cubic-bezier(.65, .05, .36, 1.0);
+
+}
+
+.event-card img {
+    transition: transform .4s cubic-bezier(.2, .9, .2, 1);
+}
+
+.event-card:hover img {
+    transform: scale(1.05);
+}
+
+.events-section.visible .event-card {
+    opacity: 1;
+    transform: none;
+}
+
+.event-card:nth-child(1) {
+    transition-delay: .13s;
+}
+
+.event-card:nth-child(2) {
+    transition-delay: .23s;
+}
+
+.event-card:nth-child(3) {
+    transition-delay: .31s;
+}
+
+.event-card:hover {
+    box-shadow: 0 14px 32px 0 rgb(31 41 55 / 13%);
+}
+
+.event-card__img-wrap {
+    position: relative;
+}
+
+.event-card__img {
+    height: 160px;
+    width: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.event-card__tag {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 5px 16px;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: #fff;
+    background: #0091fc;
+    z-index: 2;
+    box-shadow: 0 2px 6px 0 rgba(31, 41, 55, 0.12);
+}
+
+.event-card__tag--academic {
+    background: #5e8ed6
+}
+
+.event-card__tag--sports {
+    background: #24c974
+}
+
+.event-card__tag--ceremony {
+    background: #b769cb
+}
+
+.event-card__details {
+    padding: 18px 21px 18px 21px;
+}
+
+.event-card__name {
+    font-size: 1.12rem;
+    color: #1b2140;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.event-card__info span {
+    font-size: 1.01rem;
+    color: #4664a5;
+    display: flex;
+    align-items: center;
+    margin-bottom: 3px;
+}
+
+.event-card__info span:last-child {
+    margin-bottom: 0;
+}
+
+/* Responsive */
+@media (max-width: 950px) {
+    .events-section__cards {
+        gap: 16px;
+    }
+
+    .event-card {
+        width: 98vw;
+        max-width: 390px;
+    }
+}
+
+@media (max-width: 700px) {
+    .events-section__cards {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .event-card {
+        width: 90vw;
+        min-width: unset;
+        max-width: 98vw;
+    }
+}
+
+/* events end */
+/* faculty start */
+.faculty-section {
+    max-width: 1100px;
+    margin: 60px auto 0 auto;
+    padding: 0 12px;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(32px) scale(.98);
+    transition: opacity .95s cubic-bezier(.61, .18, .46, 1), transform .95s cubic-bezier(.61, .18, .46, 1);
+}
+
+.faculty-section.visible {
+    opacity: 1;
+    transform: none;
+}
+
+.faculty-header__badge {
+    display: inline-block;
+    padding: 8px 24px;
+    background: #fbeee1;
+    color: #d78224;
+    font-weight: 600;
+    font-size: 1.08rem;
+    border-radius: 18px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 12px 0 rgba(220, 142, 43, 0.11);
+}
+
+.faculty-header__title {
+    color: #233356;
+    font-size: 1.33rem;
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.faculty-header__desc {
+    max-width: 620px;
+    margin: 0 auto 32px;
+    color: #8593a7;
+    font-size: 1.04rem;
+    line-height: 1.6;
+}
+
+.faculty-main {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 38px;
+    margin-bottom: 48px;
+    margin-top: 24px;
+}
+
+.faculty-main__imgbox {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.faculty-main__imgbox img {
+    width: 320px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px 0 rgba(32, 41, 54, 0.08);
+    display: block;
+}
+
+.faculty-main__counter {
+    position: absolute;
+    right: -72px;
+    bottom: -41px;
+    background: linear-gradient(90deg, #ff6f36 77%, #ff5722 100%);
+    color: #fff;
+    padding: 18px 26px 12px 22px;
+    border-radius: 13px;
+    font-weight: 700;
+    font-size: 1.24rem;
+    box-shadow: 0 4px 18px rgba(255, 112, 68, 0.15);
+    text-align: left;
+    height: 105px;
+}
+
+.faculty-main__counter span {
+    font-size: 1.3rem;
+    font-weight: bold;
+    display: block;
+    line-height: 1.12;
+}
+
+.faculty-main__counter div {
+    font-size: .95rem;
+    font-weight: 400;
+    margin-top: 7px;
+    opacity: .93;
+}
+
+.faculty-main__info {
+    text-align: left;
+    margin-top: 0;
+    max-width: 440px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.faculty-main__info-title {
+    font-size: 1.12rem;
+    font-weight: 600;
+    color: #233356;
+    margin-bottom: 8px;
+    margin-top: 7px;
+}
+
+.faculty-main__info p {
+    color: #718099;
+    font-size: 1.02rem;
+    margin-bottom: 16px;
+    line-height: 1.56;
+}
+
+.faculty-main__features {
+    list-style: none;
+    padding: 0;
+    margin-top: 8px;
+}
+
+.faculty-main__features li {
+    font-size: 1rem;
+    color: #217e3c;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    background: #38de6f;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+/* STATS CARDS */
+.faculty-stats {
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    margin-top: 7px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+}
+
+.faculty-stat-card {
+    flex: 1;
+    min-width: 230px;
+    max-width: 330px;
+    background: #fff;
+    border-radius: 14px;
+    padding: 36px 12px 24px 12px;
+    box-shadow: 0 6px 32px rgba(44, 62, 80, 0.07);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(24px) scale(.98);
+    transition: opacity .2s cubic-bezier(.66, .17, .48, 1), transform .8s cubic-bezier(.66, .17, .48, 1);
+}
+
+.faculty-section.visible .faculty-stat-card {
+    opacity: 1;
+    transform: none;
+}
+
+
+
+.faculty-stat-icon {
+    width: 54px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #ff5722 75%, #f77043 100%);
+    margin-bottom: 18px;
+    box-shadow: 0 4px 16px rgba(255, 112, 68, 0.15);
+}
+
+.faculty-stat-icon svg {
+    width: 32px;
+    height: 32px;
+    color: #fff;
+    display: block;
+}
+
+.faculty-stat-val {
+    font-size: 1.23rem;
+    font-weight: 700;
+    color: #fd6733;
+    margin-bottom: 5px;
+}
+
+.faculty-stat-label {
+    font-size: .97rem;
+    color: #8593a7;
+    font-weight: 500;
+}
+
+@media (max-width: 900px) {
+    .faculty-main {
+        flex-direction: column;
+        align-items: center;
+        gap: 26px;
+    }
+
+    .faculty-main__info {
+        max-width: 98vw;
+        margin-top: 10px;
+    }
+
+    .faculty-main__imgbox img {
+        width: 95vw;
+        min-width: 180px;
+        max-width: 370px;
+    }
+
+    .faculty-stats {
+        gap: 18px;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .faculty-stat-card {
+        max-width: 97vw;
+        min-width: unset;
+    }
+}
+
+/* Statistic CARD hover */
+.faculty-stat-card:hover,
+.faculty-stat-card:focus {
+    transform: translateY(-9px) scale(1.03);
+    box-shadow: 0 12px 40px rgba(255, 112, 68, 0.10), 0 4px 24px rgba(44, 62, 80, 0.13);
+}
+
+.faculty-stat-card:hover .faculty-stat-icon,
+.faculty-stat-card:focus .faculty-stat-icon {
+    background: linear-gradient(135deg, #f65102 65%, #ff7f50 100%);
+    box-shadow: 0 10px 32px rgba(255, 112, 68, 0.12);
+}
+
+.faculty-stat-card:hover .faculty-stat-icon svg,
+.faculty-stat-card:focus .faculty-stat-icon svg {
+    color: #fff;
+    filter: drop-shadow(0 0 8px #ff7f50b0);
+}
+
+/* Main educator counter hover */
+.faculty-main__counter:hover,
+.faculty-main__counter:focus {
+    transform: translateY(-3px) scale(1.06);
+    background: linear-gradient(90deg, #ff4b11 77%, #ff763c 100%);
+    box-shadow: 0 10px 36px rgba(255, 112, 68, 0.20);
+    cursor: pointer;
+    transition: background 0.23s, box-shadow 0.23s, transform 0.28s;
+}
+
+/* Optional: .faculty-main__imgbox:hover img - slight zoom */
+.faculty-main__imgbox:hover img,
+.faculty-main__imgbox:focus img {
+    transform: scale(1.038);
+    transition: transform .33s cubic-bezier(.7, .14, .35, 1);
+}
+
+/* Features (dot) hover: change dot color */
+.faculty-main__features li:hover .dot {
+    background: #14c473;
+    transition: background 0.18s;
+}
+
+.faculty-main__imgbox img {
+    height: 500px;
+    width: 400px;
+}
+
+/* Card transition keeps it smooth */
+.faculty-stat-card,
+.faculty-main__counter,
+.faculty-main__imgbox img {
+    transition: transform 0.33s cubic-bezier(.74, .18, .22, 1), box-shadow 0.22s, background 0.18s;
+}
+
+/* faculty end */
+/* admission start */
+/* Scoped CSS for the contact section only */
+.contact-section {
+    --cs-bg: #f7f9fb;
+    --cs-card-bg: #ffffff;
+    --cs-muted: #9aa7b2;
+    --cs-accent-gradient: linear-gradient(135deg, #7b5cff 0%, #3ab0ff 100%);
+    --cs-icon-size: 44px;
+    --cs-radius: 12px;
+    --cs-input-bg: #f0f2f4;
+    --cs-primary: #0b6cff;
+
+    background: var(--cs-bg);
+    padding: 48px 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Nemalum global font bo'lsa, parent-ga font qo'yilmasin — agar kerak bo'lsa olib tashlang */
+    font-family: inherit;
+}
+
+/* Layout wrapper inside the section */
+.contact-section .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 32px;
+    padding: 0 20px;
+}
+
+/* Cards (left form, right info) */
+.contact-section .left-card,
+.contact-section .right-card {
+    background: var(--cs-card-bg);
+    border-radius: var(--cs-radius);
+    padding: 24px;
+    box-shadow: 0 1px 0 rgba(16, 24, 40, 0.04), 0 8px 24px rgba(16, 24, 40, 0.06);
+}
+
+/* Left card header */
+.contact-section .left-card h3 {
+    margin: 0 0 18px 0;
+    font-weight: 600;
+    color: #19232f;
+}
+
+/* Form controls (scoped) */
+.contact-section .contact-form input,
+.contact-section .contact-form textarea {
+    width: 100%;
+    border: 0;
+    background: var(--cs-input-bg);
+    padding: 12px 14px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: #223;
+    outline: none;
+}
+
+/* Allow textarea to resize vertically only */
+.contact-section .contact-form textarea {
+    resize: vertical;
+}
+
+/* Send button */
+.contact-section .btn-send {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--cs-primary);
+    color: #fff;
+    border: 0;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 6px 12px rgba(11, 108, 255, 0.18);
+}
+
+/* small inline SVG/icon inside button */
+.contact-section .btn-send .icon-inline {
+    opacity: 0.95;
+    display: inline-block;
+}
+
+/* Right card text intro */
+.contact-section .intro {
+    color: var(--cs-muted);
+    font-size: 14px;
+    margin: 0 0 18px 0;
+}
+
+/* Info list */
+.contact-section .info-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Individual info row */
+.contact-section .info-item {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+/* Icon background box with gradient */
+.contact-section .icon-wrap {
+    width: var(--cs-icon-size);
+    height: var(--cs-icon-size);
+    border-radius: 12px;
+    display: inline-grid;
+    place-items: center;
+    flex: 0 0 var(--cs-icon-size);
+    background: var(--cs-accent-gradient);
+    box-shadow: 0 6px 18px rgba(59, 176, 255, 0.12);
+}
+
+/* Ensure inline SVGs fit */
+.contact-section .icon-wrap svg {
+    display: block;
+    width: 20px;
+    height: 20px;
+}
+
+/* Text area right of icon */
+.contact-section .info-text .label {
+    font-size: 14px;
+    color: #334;
+    font-weight: 600;
+}
+
+.contact-section .info-text .value {
+    color: var(--cs-muted);
+    font-size: 13px;
+    margin-top: 2px;
+}
+
+/* Office hours card */
+.contact-section .office-hours {
+    margin-top: 14px;
+    background: linear-gradient(180deg, #fafcff, #fff6ff);
+    padding: 14px;
+    border-radius: 8px;
+    border: 1px solid rgba(20, 30, 40, 0.02);
+    box-shadow: 0 6px 18px rgba(123, 92, 255, 0.04);
+}
+
+.contact-section .office-hours h4 {
+    margin: 0 0 8px 0;
+    font-size: 15px;
+    color: #2b3a44;
+}
+
+.contact-section .office-hours .hours {
+    margin: 6px 0;
+    color: var(--cs-muted);
+    font-size: 13px;
+}
+
+/* Scoped visually-hidden (if you need it only inside this section) */
+.contact-section .visually-hidden {
+    position: absolute !important;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+    white-space: nowrap;
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+    .contact-section .container {
+        grid-template-columns: 1fr;
+        padding: 0 20px;
+    }
+
+    .contact-section .right-card {
+        order: 2;
+    }
+}
+
+/* admission end */
 /* footer start */
 .footer {
     background: #0d1628;
@@ -1068,9 +2141,11 @@ body {
     font-family: 'Poppins', sans-serif;
     margin-top: 90px;
 }
-.footer a{
+
+.footer a {
     text-decoration: none;
 }
+
 .footer-container {
     max-width: 1250px;
     /* O'rtaga joylashadi */
@@ -1215,3 +2290,235 @@ body {
 }
 
 /* footer end */
+/* visiblity change styles */
+body.is-ready {
+    opacity: 1;
+    transition: opacity 1s cubic-bezier(.7, 0, .31, 1);
+}
+
+/* body { opacity: 0; } */
+
+.intro-info-btns.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.intro-info-btns {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: all 0.78s;
+}
+
+.section-4-card.show {
+    opacity: 1;
+    transform: none;
+}
+
+.section-4-card {
+    opacity: 0;
+    transform: translateY(26px) scale(.97);
+    transition: all 0.7s cubic-bezier(.5, 0, .21, 1);
+}
+
+.events-section.visible {
+    opacity: 1;
+    transform: none;
+}
+
+.events-section {
+    opacity: 0;
+    transform: translateY(42px);
+    transition: all 1.2s cubic-bezier(.7, 0, .31, 1);
+}
+
+.card.visible {
+    opacity: 1;
+    transform: none;
+}
+
+.card {
+    opacity: 0;
+    transform: translateY(32px) scale(.96);
+    transition: all 0.8s cubic-bezier(.57, .12, .38, 1);
+}
+
+/* fixed header */
+/* Media Query */
+/* Responsive overrides applied ONLY when viewport <= 1279px.
+   Desktop >=1280px keeps the original styles untouched.
+   Also prevents horizontal scrolling (overflow-x).
+*/
+
+/* Prevent horizontal scrolling globally */
+html, body {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Make images and media fluid by default on smaller screens */
+@media (max-width: 1279px) {
+  img, video, iframe, picture {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Ensure containers never exceed viewport width */
+  .container,
+  .site-wrap,
+  .cards-info-box__inner,
+  .section-4-container,
+  .footer-container,
+  .programs-section,
+  .cards {
+    max-width: 100%;
+    width: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+    box-sizing: border-box;
+  }
+
+  /* NAV adjustments: wrap and compact spacing */
+  #navTop {
+    height: auto;
+    padding: 10px 14px;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  #navTop ul { flex-wrap: wrap; gap: 10px; }
+  #navTop li { margin: 6px 8px; }
+  #navTop li a {
+    font-size: 14px;
+    padding: 6px 8px;
+    white-space: nowrap;
+  }
+  /* Ensure apply button doesn't overflow */
+  #apply_btn { max-width: 100%; box-sizing: border-box; }
+
+  /* Header: allow variable height and avoid fixed 100vh overflow on small devices */
+  header {
+    height: auto;
+    min-height: 50vh;
+    background-position: center;
+    background-size: cover;
+  }
+  header .content h1 { max-width: 100%; word-break: break-word; }
+
+  /* CARDS grid: move from multi-column to single/2-column progressively */
+  .cards { width: 100%; max-width: 100%; padding: 0; box-sizing: border-box; }
+  /* 3 -> 2 -> 1 handled below by narrower breakpoints (but set safe defaults here) */
+  .cards { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+
+  /* Programs grid */
+  .program-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+
+  /* Card sizes: remove fixed widths and use fluid sizing */
+  .card, .card-inner, .program-card .card-inner {
+    width: 100%;
+    max-width: 100%;
+    padding: 20px;
+    min-height: unset;
+  }
+
+  /* ICONS reduce size so they don't force width */
+  .icon, .card-icon, .icon--blue, .icon--purple {
+    width: 48px;
+    height: 48px;
+  }
+
+  /* ABOUT section stacks vertically */
+  .about-section {
+    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
+    border-radius: 12px;
+  }
+  .about-text, .about-img-wrap { width: 100%; min-width: 0; padding: 0; }
+
+  /* About image card becomes fluid */
+  .img-card { max-width: 100%; width: 100%; }
+
+  /* Events: make cards responsive */
+  .events-section__cards { gap: 16px; justify-content: center; }
+  .event-card { width: 100%; max-width: 640px; box-sizing: border-box; }
+
+  /* Faculty: stack and resize images/counters */
+  .faculty-main { flex-direction: column; gap: 18px; align-items: center; }
+  .faculty-main__imgbox img { width: 100%; max-width: 420px; height: auto; }
+  .faculty-main__counter { position: static; transform: none; margin-top: 8px; }
+
+  /* Section-4 cards: full width stacked */
+  .section-4-container { flex-direction: column; align-items: stretch; gap: 14px; }
+  .section-4-card { width: 100%; padding: 20px; border-radius: 12px; }
+
+  /* PROGRAM cards: single column fallback for smaller tablets */
+  @media (max-width: 980px) {
+    .cards { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .program-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* For narrower devices <= 768: single column layout everywhere */
+  @media (max-width: 768px) {
+    .cards, .program-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+
+    .contact-section .container {
+      grid-template-columns: 1fr;
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+
+    .contact-section .right-card { order: 2; margin-top: 12px; }
+
+    /* Make contact form send button full width for tap targets */
+    .contact-section .btn-send { width: 100%; justify-content: center; padding: 12px 14px; }
+
+    /* Footer: stacked */
+    .footer-container { flex-direction: column; gap: 20px; padding-left: 12px; padding-right: 12px; }
+  }
+
+  /* Mobile <= 640px: compact spacings, smaller fonts, avoid overflow due to large fixed widths */
+  @media (max-width: 640px) {
+    #navTop li a { font-size: 13px; padding: 5px 6px; }
+    #navTop img { width: 44px; height: 44px; }
+    .cards { gap: 14px; }
+    .card, .card-inner { padding: 16px; }
+    .section-4-card { padding: 16px; }
+    .events-section__cards { gap: 12px; flex-direction: column; align-items: center; }
+    .event-card { width: 92vw; max-width: 92vw; }
+    .faculty-stats { flex-direction: column; gap: 14px; }
+    .contact-section .icon-wrap { width: 40px; height: 40px; }
+    .contact-section .info-text .label { font-size: 13px; }
+    .contact-section .info-text .value { font-size: 12px; }
+  }
+
+  /* Very small phones <= 380px: final downscale */
+  @media (max-width: 380px) {
+    .icon, .card-icon { width: 40px; height: 40px; }
+    .title, .card-title { font-size: 0.95rem; }
+    .desc, .card-desc { font-size: 0.9rem; }
+    .contact-section { padding: 20px 0; }
+    .contact-section .container { padding-left: 10px; padding-right: 10px; }
+    .contact-section .btn-send { padding: 10px; font-size: 14px; }
+    .footer-container { padding-left: 10px; padding-right: 10px; gap: 12px; }
+  }
+
+  /* Additional safety: override any fixed pixel widths used elsewhere (e.g. width: 1400px) */
+  [style*="width:1400px"], .cards[style*="width:1400px"], .cards[width="1400"] {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Convert any explicit fixed widths to max-width to avoid overflow */
+  .cards { width: 100% !important; max-width: 100% !important; }
+  .footer, .header, .site-wrap { box-sizing: border-box; }
+
+  /* Final guard: ensure any absolutely positioned elements can't push horizontal scroll
+     (if you use large negative/positive offsets, adjust them in markup if required) */
+  * { max-width: 100vw; }
+}
+
+/* End of responsive-max1279.css */
